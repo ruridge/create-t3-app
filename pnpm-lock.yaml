@@ -116,6 +116,7 @@ importers:
       tailwind-scrollbar: ^2.0.1
       tailwindcss: ^3.2.4
       typescript: ^4.9.3
+      usehooks-ts: ^2.9.1
     dependencies:
       '@algolia/client-search': 4.14.2
       '@astrojs/image': 0.10.0_sharp@0.31.1
@@ -131,6 +132,7 @@ importers:
       embla-carousel-autoplay: 7.0.3_embla-carousel@7.0.3
       sharp: 0.31.1
       tailwind-scrollbar: 2.0.1_tailwindcss@3.2.4
+      usehooks-ts: 2.9.1_zpnidt7m3osuk7shl3s4oenomq
     devDependencies:
       '@astrojs/react': 1.2.2_3bhkwyemkaaqpam2s26divyemm
       '@astrojs/tailwind': 2.1.2_tailwindcss@3.2.4
@@ -7080,6 +7082,17 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       prepend-http: 2.0.0
+    dev: false
+
+  /usehooks-ts/2.9.1_zpnidt7m3osuk7shl3s4oenomq:
+    resolution: {integrity: sha512-2FAuSIGHlY+apM9FVlj8/oNhd+1y+Uwv5QNkMQz1oSfdHk4PXo1qoCw9I5M7j0vpH8CSWFJwXbVPeYDjLCx9PA==}
+    engines: {node: '>=16.15.0', npm: '>=8'}
+    peerDependencies:
+      react: ^16.8.0  || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
     dev: false
 
   /util-deprecate/1.0.2:

@@ -42,25 +42,33 @@ const githubEditUrl = `${CONFIG.GITHUB_EDIT_URL}/${currentFile}`;
 
     <script is:inline>
       const html = document.documentElement;
-      const theme = (() => {
+
+      // should be "dark" | "light" | "system"
+      const darkMode = (() => {
         if (
           typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
+          localStorage.getItem("usehooks-ts-ternary-dark-mode")
         ) {
-          return localStorage.getItem("theme");
+          return localStorage.getItem("usehooks-ts-ternary-dark-mode");
         }
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
           return "dark";
         }
         return "light";
       })();
-      if (theme === "light") {
-        html.classList.remove("dark");
-        html.classList.add("light");
-      } else {
-        html.classList.add("dark");
-        html.classList.remove("light");
+
+      console.log("darkMode", darkMode);
+
+      // is "dark" | "light"
+      let appearance = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+      if (darkMode !== "system") {
+        appearance = darkMode;
       }
+
+      html.classList.toggle("dark", appearance === "dark");
     </script>
   </head>
 

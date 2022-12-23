@@ -1,0 +1,125 @@
+<div
+  class="flex bg-t3-purple-200/50 hover:bg-t3-purple-200/75 dark:bg-t3-purple-200/10 border dark:border-t3-purple-200/20 dark:hover:border-t3-purple-200/50 p-2 w-fit mx-auto rounded-lg gap-3"
+>
+  <label class="cursor-pointer text-slate-900 dark:text-slate-50">
+    <input
+      class="peer absolute invisible"
+      type="radio"
+      name="theme-toggle"
+      value="light"
+      title="use light-mode"
+      aria-label="use light-mode"
+    />
+    <!-- Sun -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6 stroke-current fill-current stroke-2 transition-colors duration-300 peer-checked:text-t3-purple-500"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+      ></path>
+    </svg>
+  </label>
+  <label class="cursor-pointer text-slate-900 dark:text-slate-50">
+    <input
+      class="peer absolute invisible"
+      type="radio"
+      name="theme-toggle"
+      value="dark"
+      title="use dark-mode"
+      aria-label="use dark-mode"
+    />
+    <!-- Moon -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 fill-current stroke-current transition-colors duration-300 peer-checked:text-t3-purple-500"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+      ></path>
+    </svg>
+  </label>
+  <label class="cursor-pointer text-slate-900 dark:text-slate-50">
+    <input
+      class="peer absolute invisible"
+      type="radio"
+      name="theme-toggle"
+      value="system"
+      title="use system theme"
+      aria-label="use system theme"
+    />
+    <!-- Theme -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 fill-current stroke-current transition-colors duration-300 peer-checked:text-t3-purple-500"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Zm0-2V4a8 8 0 1 1 0 16Z"
+      ></path>
+    </svg>
+  </label>
+</div>
+
+<script is:inline>
+  const html = document.documentElement;
+
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      const userTheme = localStorage.getItem("theme");
+      if (userTheme === "dark") return "dark";
+      if (userTheme === "light") return "light";
+    }
+    return "system";
+  })();
+
+  if (theme === "system") {
+    html.classList.toggle(
+      "dark",
+      window.matchMedia("(prefers-color-scheme: dark)").matches,
+    );
+  } else {
+    html.classList.toggle("dark", theme === "dark");
+  }
+  document.querySelector(
+    `input[name="theme-toggle"][value="${theme}"]`,
+  ).checked = true;
+</script>
+
+<script>
+  const html = document.documentElement;
+
+  const lightToggle = document.querySelector(
+    'input[name="theme-toggle"][value="light"]',
+  ) as HTMLInputElement;
+  const darkToggle = document.querySelector(
+    'input[name="theme-toggle"][value="dark"]',
+  ) as HTMLInputElement;
+  const systemToggle = document.querySelector(
+    'input[name="theme-toggle"][value="system"]',
+  ) as HTMLInputElement;
+
+  type TernaryColorScheme = "dark" | "light" | "system";
+  const toggleTheme = (t: TernaryColorScheme) => {
+    let theme: "light" | "dark" = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches
+      ? "dark"
+      : "light";
+    if (t === "system") {
+      localStorage.removeItem("theme");
+    } else {
+      theme = t;
+      localStorage.setItem("theme", theme);
+    }
+    html.classList.toggle("dark", theme === "dark");
+  };
+
+  lightToggle!.addEventListener("change", () => toggleTheme("light"));
+  darkToggle!.addEventListener("change", () => toggleTheme("dark"));
+  systemToggle!.addEventListener("change", () => toggleTheme("system"));
+</script>
